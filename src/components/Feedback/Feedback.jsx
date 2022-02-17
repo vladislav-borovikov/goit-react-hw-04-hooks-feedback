@@ -1,7 +1,7 @@
 import {useState} from 'react';
-import Statistics from './Statistics'
-import FeedbackOptions from './FeedbackOptions'
-import Section from './section/Section'
+import Statistics from '../Statistics/Statistics'
+import FeedbackOptions from '../FeedbackOptions/FeedbackOptions'
+import Section from '../section/Section'
 
 const Feedback = () => {
     const [good, setGood] = useState(0);
@@ -35,22 +35,25 @@ const Feedback = () => {
     };
 
     const countPositiveFeedbackPercentage = () => {
-        const PositiveFeedbackProcent = (good + neutral) / countTotalFeedback() * 100
+        const PositiveFeedbackProcent = good / countTotalFeedback() * 100
         return Math.floor(PositiveFeedbackProcent)
     };
+
+    const totalFeedback = countTotalFeedback()
 
 
     
         return (
+            
             <>
                 <Section title="Please leave feedback">
                     <FeedbackOptions onLeaveFeedback={assessmentСhoice} />
                 </Section>
 
                 <Section title="Statistics">
-                    {countTotalFeedback() === 0 ?
+                    {totalFeedback === 0 ?
                         <h3>No feedback given</h3> :
-                        <Statistics good={good} neutral={neutral} bad={bad} total={countTotalFeedback()} positivePercentage={countPositiveFeedbackPercentage()} />
+                        <Statistics good={good} neutral={neutral} bad={bad} total={totalFeedback} positivePercentage={countPositiveFeedbackPercentage()} />
                     }
                 </Section>
             </>
